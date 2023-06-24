@@ -100,7 +100,7 @@ CURSOR_MENU = "Menu"
 CURSOR_ON_SCREEN = "On Screen"
 CURSOR_OPTION = "Option"
 CURSOR_SEL = "Sel"
-CURSOR_RETURN = "Return"
+CURSOR_RETURN = "Back"
 CURSOR_RETURN_TO_HOME = "Return to Home"
 CURSOR_RIGHT = "Right"
 CURSOR_TOP_MENU = "Top Menu"
@@ -603,7 +603,8 @@ class RXV(object):
         request_text = ListGet.format(src_name=src_name)
         res = self._request('GET', request_text, zone_cmd=False)
 
-        ready = (next(res.iter("Menu_Status")).text == "Ready")
+        #ready = (next(res.iter("Menu_Status")).text == "Ready")
+        ready = 1        
         layer = int(next(res.iter("Menu_Layer")).text)
         name = next(res.iter("Menu_Name")).text
         current_line = int(next(res.iter("Current_Line")).text)
@@ -865,6 +866,7 @@ class RXV(object):
         for attempt in range(20):
             menu = self.menu_status()
             if menu.ready:
+                time.sleep(1)
                 for line, value in menu.current_list.items():
                     if value == layers[menu.layer - 1]:
                         lineno = line[5:]
