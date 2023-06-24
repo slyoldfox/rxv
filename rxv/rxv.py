@@ -859,6 +859,9 @@ class RXV(object):
         TODO: better error handling if we some how time out
         TODO: multi page menus (scrolling down)
         """
+        if not self.on:
+            self.on = True
+
         layers = path.split(">")
         self.input = "NET RADIO"
         self.menu_reset()
